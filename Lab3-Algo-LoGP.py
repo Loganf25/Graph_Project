@@ -1,6 +1,6 @@
 #CSCI 3330 Project 3
 #Logan Flora
-#Name
+#Joe Thomas
 #Name
 
 #If Error
