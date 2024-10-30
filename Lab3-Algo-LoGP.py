@@ -3,8 +3,15 @@
 #Name
 #Name
 
+#If Error
+#Use terminal to install: type "pip install networkx[default]"
+import networkx as nx
+
 #This Function does the logic for Question 1
 def unDirGraph():
+    #Implement Graph for Questions (The Picture)
+    G = nx.Graph()
+
     #Code for Part a (Implement DFS and BFS to check
     #If they find all connected components of undir graph)
     #DFS Code in Chapter 3, BFS in Chapter 4 
@@ -21,6 +28,9 @@ def unDirGraph():
 
 #This Function does the logic for Question 2
 def dirDigraph():
+    #Implement Digraph for Questions (The Picture)
+    DiG = nx.DiGraph() 
+
     #Code for Part a (Create graph and find strongly connected components)
     #Code in Chapter 3 Folder
 
@@ -34,6 +44,9 @@ def dirDigraph():
 
 #This Function does the logic for Question 3
 def unDirWeighted():
+    #Implementing Undirected Weighted Graph
+    G = nx.Graph()
+
     #Code for Part a (Implement graph and Use Dijksreas algo to produce
     #Shortest path three, test with node A)
 
