@@ -1,7 +1,7 @@
 #CSCI 3330 Project 3
 #Logan Flora
 #Joe Thomas
-#Name
+#Jack Chiolino
 
 #If Error
 #Use terminal to install: type "pip install networkx[default]"
