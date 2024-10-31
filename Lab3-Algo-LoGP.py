@@ -65,10 +65,67 @@ def dijkstra(graph, initial):
 
   return visited, path
 
+#Kruskall Algo for MST
+def Kruskal(graph):
+    #Helper functions 
+    def find(parent, i):
+        if parent[i] == i:
+            return i
+        return find(parent, parent[i])
+    def union(parent, rank, x, y):
+        xroot = find(parent, x)
+        yroot = find(parent, y)
+        if rank[xroot] < rank[yroot]:
+            parent[xroot] = yroot
+        elif rank[xroot] > rank [yroot]:
+            parent [yroot] = xroot
+        else:
+            parent [yroot] = xroot
+            rank[xroot] += 1
+ 
+    result = nx.Graph() #This will store the resultant MST
+ 
+    i = 0 # An index variable, used for sorted edges
+    e = 0 # An index variable, used for result[]
+ 
+    #Step 1:  Sort all the edges in non-decreasing order of their
+    # weight.  If we are not allowed to change the given graph, we
+    # can create a copy of graph
+    sorted_graph =  sorted(graph.edges(data=True), key = lambda t: t[2].get('weight', 1))
+    #print self.graph
+ 
+    parent = {} ; rank = {}
+ 
+    # Create V subsets with single elements
+    for node in graph.nodes():
+        parent[node] = node
+        rank[node] = 0 
+     
+    # Number of edges to be taken is equal to V-1
+    while e < graph.number_of_nodes() - 1:
+ 
+        # Step 2: Pick the smallest edge and increment the index
+        # for next iteration
+        u,v,w =  sorted_graph[i]
+        i = i + 1
+        x = find(parent, u)
+        y = find(parent ,v)
+ 
+        # If including this edge does't cause cycle, include it
+        # in result and increment the index of result for next edge
+        if x != y:
+            e = e + 1  
+            result.add_edge(u, v, weight=w['weight'])
+            union(parent, rank, x, y)          
+        # Else discard the edge v5
+    return result
+
+
 #This Function does the logic for Question 1
 def unDirGraph():
     #Implement Graph for Questions (The Picture)
     G = nx.Graph()
+
 
     # Example nodes and edges (Adding just as a template for now, will replace with actual nodes later)
     G.add_edges_from([
@@ -152,6 +209,7 @@ def unDirWeighted():
     initial_Node = 'A'
     visited, path = dijkstra(G, initial_Node)
 
+
     #Create Shortest Path Tree From Dijkstra's Algo Results
     spt = nx.Graph()
     spt.add_node(initial_Node)
@@ -165,9 +223,7 @@ def unDirWeighted():
     print("Shortest Path Tree of Graph, Edges and Weights: ")
     print(spt)
     #data tells what we are trying to get from each edge 
-    for u, v, weight in spt.edges(data='weight'):
-       print(f"Edge: {u}--{v} has Weight of: {weight}")
-    print("\nShortest distances from node:", initial_Node)
+    print(spt.edges(data=True))
     print(visited)
 
     #Creates image of Sortest Path Tree (Cudos to NetworkX and plt)
@@ -178,16 +234,37 @@ def unDirWeighted():
        node_size=500, node_color='red', alpha=0.9,
        labels={node: node for node in spt.nodes()}
     )
-    plt.savefig('spt_q3.png')
+    plt.savefig('spt_q3p1.png')
     plt.show()
 
     #Code for Part b (Produce min Spanning tree for graph)
+    MST = nx.Graph()
+    MST = Kruskal(G)
+
+    print("\nMinimum Spanning Tree of Graph, Edges and Weights: ")
+    print(MST)
+    print(MST.edges(data=True))
+
+    #Create Image of MST
+    pos1 = nx.spring_layout(MST)
+    plt.figure()
+    nx.draw(
+       MST, pos1, edge_color='black', width=1, linewidths=1,
+       node_size=500, node_color='red', alpha=0.9,
+       labels={node: node for node in MST.nodes()}
+    )
+    plt.savefig('spt_q3p2.png')
+    plt.show()
 
     #Code for Part c (Are Shortest Path Tree and Min Span Tree
     #Usually the Same?) (May be no code)
+    print("As seen by the graphs craeted above, the SPT and MST are different from one another")
+    print("But, they are the same each time either is found on the given graph.")
 
     #Coe for Part d (If - weighted edges occur, can Dijkstra's Ago find
     #Shortest path three still?) (May be no code)
+    print("It is not possible to use Dijkstra's Algo for - Weighted Edges. Example: ")
+    #Try to create Graph with one of its edges negative 
     return 0
 
 
