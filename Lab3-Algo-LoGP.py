@@ -139,8 +139,8 @@ def unDirGraph():
     #DFS Code in Chapter 3, BFS in Chapter 4 
 
     start_node = 'A'  # Example starting node, replace as needed
-    dfs_result = dfs_iterative(graph_dict, start_node)
-    bfs_result = bfs_path(graph_dict, start_node, 'I')  # Example path from A to I
+    dfs_result = dfs_iterative(G, start_node)
+    bfs_result = bfs_path(G, start_node, 'I')  # Example path from A to I
 
     # Output results
     print("DFS visited nodes:", dfs_result)
@@ -151,8 +151,8 @@ def unDirGraph():
     #Code for DFS Paths in Chapter 3, DFS in Chapter 4
 
     u, v = 'A', 'I'  # Example nodes, will replace with actual nodes later
-    dfs_path = dfs_iterative(graph_dict, u)
-    bfs_path_result = bfs_path(graph_dict, u, v)
+    dfs_path = dfs_iterative(G, u)
+    bfs_path_result = bfs_path(G, u, v)
     
     print("Path found by DFS:", dfs_path)
     print("Path found by BFS:", bfs_path_result)
@@ -269,6 +269,8 @@ def unDirWeighted():
 def main():
     print ("Hello World!")
     unDirWeighted()
+    print("\n\n")
+    unDirGraph()
 
 
 main()
