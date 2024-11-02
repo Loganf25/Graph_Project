@@ -127,10 +127,8 @@ def unDirGraph():
     G = nx.Graph()
 
 
-    # Example nodes and edges (Adding just as a template for now, will replace with actual nodes later)
     G.add_edges_from([
-        ('A', 'B'), ('A', 'C'), ('B', 'D'), ('C', 'E'), ('D', 'F'),
-        ('E', 'F'), ('F', 'G'), ('G', 'H'), ('H', 'I'), ('I', 'A')
+        ('A', 'B'), ('A', 'E'), ('A', 'F'), ('B', 'C'), ('B', 'F'), ('C', 'D'), ('C', 'G'), ('D', 'H'), ('E', 'I'), ('F', 'G'), ('F', 'J'), ('G', 'H'), ('G', 'K'),  ('H', 'L'),  ('I', 'J'),  ('I', 'M'),  ('J', 'K'),  ('J', 'N'),  ('K', 'L'),  ('K', 'O'),  ('M', 'N'),  ('N', 'O'),  ('O', 'P') 
     ])
 
     # Convert the NetworkX graph to a dictionary of adjacency lists for DFS and BFS
