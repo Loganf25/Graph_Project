@@ -277,6 +277,7 @@ def dirDigraph():
     # Run scc.py on graph
     post_scc = scc(Dir_Edges)
 
+
     #Part b is on Paper (Draw Meta Graph of Strong Components)
     #Use output of Part a to draw graph (Like in Chapter 3 Slides near end)
     #(May be no code)
@@ -403,12 +404,10 @@ def main():
     unDirGraph()
     print("\n\n")
     #Results for Q 2
-    #dirDigraph()
+    dirDigraph()
     print('\n\n')
     #Results for Q 3 
     unDirWeighted()
-    print("\n\n")
-    unDirGraph()
 
 
 main()
