@@ -193,7 +193,7 @@ def scc(graph):
 # Dfs for question 2.c to represent the meta graph as a DAG, linearized in its topological order.
 def dfs_tpl_order(graph,start,path):
     path = path + [start]
-    global n
+    int n
     for edge in graph[start]: 
         if edge not in path:
             path = dfs_tpl_order(graph, edge,path)
