@@ -172,7 +172,19 @@ def dirDigraph():
     DiG = nx.DiGraph() 
 
     #Code for Part a (Create graph and find strongly connected components)
+    DiG.add_edges_from([
+        ('A', 'C'), ('C', 'B'), ('B', 'A'), ('D', 'A'), ('D', 'B'), ('C', 'E'), ('E', ''), ('', ''), ('', ''), ('', ''), ('', ''), ('', ''), ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', '') 
+    ])
+
     #Code in Chapter 3 Folder
+    global n
+    path = path + [start]
+    for edge in graph[start]:
+        if edge not in path:
+            path = dfs_tpl_order(graph, edge, path)
+    print (n, start)
+    n -= 1
+    return path
 
     #Part b is on Paper (Draw Meta Graph of Strong Components)
     #Use output of Part a to draw graph (Like in Chapter 3 Slides near end)
@@ -180,6 +192,8 @@ def dirDigraph():
 
     #Code for Part c (Represent the drawn graph as a DAG in topological order)
     #Code also in Chapter 3 Sample Code Folder
+
+
     return 0
 
 #This Function does the logic for Question 3
