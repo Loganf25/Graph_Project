@@ -123,6 +123,7 @@ def Kruskal(graph):
 
 #This Function does the logic for Question 1
 def unDirGraph():
+    print("\nQuestion 1 Results")
     #Implement Graph for Questions (The Picture)
     G = nx.Graph()
 
@@ -143,6 +144,7 @@ def unDirGraph():
     bfs_result = bfs_path(G, start_node, 'I')  # Example path from A to I
 
     # Output results
+    print("Part A Results")
     print("DFS visited nodes:", dfs_result)
     print("BFS path from", start_node, "to I:", bfs_result)
 
@@ -154,6 +156,7 @@ def unDirGraph():
     dfs_path = dfs_iterative(G, u)
     bfs_path_result = bfs_path(G, u, v)
     
+    print("\n Part B Results")
     print("Path found by DFS:", dfs_path)
     print("Path found by BFS:", bfs_path_result)
 
@@ -162,12 +165,14 @@ def unDirGraph():
     #Prob using same code as above multiple times or sm (May be no code)
 
     same_path = dfs_path == bfs_path_result
+    print("\nPart C Results")
     print("Do DFS and BFS find the same path?", same_path)
 
     return 0
 
 #This Function does the logic for Question 2
 def dirDigraph():
+    print('Question 2 Results')
     #Implement Digraph for Questions (The Picture)
     DiG = nx.DiGraph() 
 
@@ -184,6 +189,7 @@ def dirDigraph():
 
 #This Function does the logic for Question 3
 def unDirWeighted():
+    print("Question 3 Results")
     #Implementing Undirected Weighted Graph
     #Create an Undirected Graph
     G = nx.Graph()
@@ -218,6 +224,7 @@ def unDirWeighted():
        spt.add_edge(parent, node, weight = edge_weight)
 
     #Print Results (Answer to Question)
+    print("Part A Results")
     print("Shortest Path Tree of Graph, Edges and Weights: ")
     print(spt)
     #data tells what we are trying to get from each edge 
@@ -239,7 +246,8 @@ def unDirWeighted():
     MST = nx.Graph()
     MST = Kruskal(G)
 
-    print("\nMinimum Spanning Tree of Graph, Edges and Weights: ")
+    print("\nPart B Results")
+    print("Minimum Spanning Tree of Graph, Edges and Weights: ")
     print(MST)
     print(MST.edges(data=True))
 
@@ -256,21 +264,47 @@ def unDirWeighted():
 
     #Code for Part c (Are Shortest Path Tree and Min Span Tree
     #Usually the Same?) (May be no code)
+    print("\nPart C Results")
     print("As seen by the graphs craeted above, the SPT and MST are different from one another")
     print("But, they are the same each time either is found on the given graph.")
+    print("Test edges equality: ", spt.edges == MST.edges)
+
 
     #Coe for Part d (If - weighted edges occur, can Dijkstra's Ago find
     #Shortest path three still?) (May be no code)
+    print('\nPart D Results')
     print("It is not possible to use Dijkstra's Algo for - Weighted Edges. Example: ")
+
+    #Test Dijkstra with - weight
+    G.add_node('J')
+    print('Added Node: J')
+    G.add_edge('J', 'A', weight = -5)
+    visitedT, pathT = dijkstra(G, initial_Node)
+    Testspt = nx.Graph()
+    Testspt.add_node(initial_Node)
+    for node, parent in path.items():
+       edge_weight = G[parent][node]['weight']
+       Testspt.add_edge(parent, node, weight = edge_weight)
+
+
+    print('Added Edge with wieght of -5 and preform Dijkstra\'s Algo')
+    print(Testspt.edges(data=True))
+    print('As shown by the new spt, there are no edges connecting Node J, so it cannot add J to the Graph')
+
+
     #Try to create Graph with one of its edges negative 
     return 0
 
 
 def main():
-    print ("Hello World!")
-    unDirWeighted()
-    print("\n\n")
+    #Results for Q 1
     unDirGraph()
+    print("\n\n")
+    #Results for Q 2
+    #dirDigraph()
+    print('\n\n')
+    #Results for Q 3 
+    unDirWeighted()
 
 
 main()
