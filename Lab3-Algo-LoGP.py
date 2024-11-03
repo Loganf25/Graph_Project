@@ -120,6 +120,36 @@ def Kruskal(graph):
         # Else discard the edge v5
     return result
 
+# Scc for question 2.a to find strongly connected components of the meta graph.
+def scc(graph):
+    out = defaultdict(list)
+    tracker1 = Tracker()
+    tracker2 = Tracker()
+    nodes = set()
+    reversed_graph = graph_reverse(graph)
+    for tail, head_list in graph.items():
+        nodes |= set(head_list)
+        nodes.add(tail)
+    nodes = sorted(list(nodes), reverse=True)
+    dfs_loop(reversed_graph, nodes, tracker1)
+    sorted_nodes = sorted(tracker1.finish_time,
+                          key=tracker1.finish_time.get, reverse=True)
+    dfs_loop(graph, sorted_nodes, tracker2)
+    for lead, vertex in groupby(sorted(tracker2.leader, key=tracker2.leader.get),
+                                key=tracker2.leader.get):
+        out[lead] = list(vertex)
+    return out
+
+# Dfs for question 2.c to represent the meta graph as a DAG, linearized in its topological order.
+def dfs_tpl_order(graph,start,path):
+    path = path + [start]
+    global n
+    for edge in graph[start]: 
+        if edge not in path:
+            path = dfs_tpl_order(graph, edge,path)
+    print (n, start)
+    n -= 1
+    return path
 
 #This Function does the logic for Question 1
 def unDirGraph():
@@ -170,21 +200,27 @@ def unDirGraph():
 def dirDigraph():
     #Implement Digraph for Questions (The Picture)
     DiG = nx.DiGraph() 
-
+    
     #Code for Part a (Create graph and find strongly connected components)
-    DiG.add_edges_from([
-        ('A', 'C'), ('C', 'B'), ('B', 'A'), ('D', 'A'), ('D', 'B'), ('C', 'E'), ('E', ''), ('', ''), ('', ''), ('', ''), ('', ''), ('', ''), ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', ''),  ('', '') 
-    ])
-
     #Code in Chapter 3 Folder
-    global n
-    path = path + [start]
-    for edge in graph[start]:
-        if edge not in path:
-            path = dfs_tpl_order(graph, edge, path)
-    print (n, start)
-    n -= 1
-    return path
+    # Set graph as depicted in instructions (A = 1, B = 2, etc.).
+    Dir_Edges = {
+         'A': set(['C']),
+         'B': set(['A']),
+         'C': set(['B', 'E']),
+         'D': set(['A', 'B', 'L']),
+         'E': set(['F', 'H']),
+         'F': set(['G','H', 'J']),
+         'G': set(['J']),
+         'H': set(['I', 'J']),
+         'I': set(['E', 'K']),
+         'J': set(['I', 'K']),
+         'K': set(['L']),
+         'L': set()
+            }
+
+    # Run scc.py on graph
+    post_scc = scc(Dir_Edges)
 
     #Part b is on Paper (Draw Meta Graph of Strong Components)
     #Use output of Part a to draw graph (Like in Chapter 3 Slides near end)
@@ -192,6 +228,7 @@ def dirDigraph():
 
     #Code for Part c (Represent the drawn graph as a DAG in topological order)
     #Code also in Chapter 3 Sample Code Folder
+    dfs_tpl_order(post_scc,start,path)
 
 
     return 0
@@ -283,6 +320,8 @@ def unDirWeighted():
 def main():
     print ("Hello World!")
     unDirWeighted()
+    print("\n\n")
+    dirDigraph()
     print("\n\n")
     unDirGraph()
 
