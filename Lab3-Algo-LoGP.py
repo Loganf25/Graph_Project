@@ -307,12 +307,12 @@ def dirDigraph():
     #Code also in Chapter 3 Sample Code Folder
     n_holder = [len(Dir_Edges)]
     print('the meta graph as a DAG and linearized in its topological order is:')
+    #Using networkx's version since mine is not working properly 
     #c = dfs_tpl_order(meta_graph, 1, [],n_holder)
     #print(c)
     #print('\n')
     c1 = list(nx.topological_sort(meta_graph))
     print(c1)
-
     return 0
 
 #This Function does the logic for Question 3
