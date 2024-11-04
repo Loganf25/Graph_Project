@@ -192,17 +192,20 @@ def scc(graph):
 
 # Create graph for question 2.b
 def create_meta_graph(Dir_Edges, post_scc):
-    meta_graph = defaultdict(list)
-    scc_nodes = {} 
-    for leader, nodes in post_scc.items():
-        scc_nodes[leader] = nodes[0]  # Choose a representative node for each SCC
+    meta_graph = nx.DiGraph()
+    scc_nodes = {}
 
-    for u, v in Dir_Edges.items():
-        leader_u = next((leader for leader, nodes in post_scc.items() if u in nodes), None)
-        for dest in v:
-            leader_v = next((leader for leader, nodes in post_scc.items() if dest in nodes), None)
-            if leader_u != leader_v:  # Avoid edges within the same SCC
-                meta_graph[scc_nodes[leader_u]].append(scc_nodes[leader_v]) 
+# Iterate through nodes in the SCC graph
+    for component in nx.connected_components(post_scc):
+        leader = next(iter(component))  # Choose a representative node 
+        scc_nodes[leader] = leader 
+
+    for u in Dir_Edges.nodes():
+        leader_u = next((leader for leader in scc_nodes if u in post_scc.subgraph(scc_nodes[leader])), None)
+        for v in Dir_Edges.neighbors(u):
+            leader_v = next((leader for leader in scc_nodes if v in post_scc.subgraph(scc_nodes[leader])), None)
+            if leader_u != leader_v:
+                meta_graph.add_edge(scc_nodes[leader_u], scc_nodes[leader_v])
     return meta_graph
 
 # Dfs for question 2.c to represent the meta graph as a DAG, linearized in its topological order.
@@ -299,6 +302,7 @@ def dirDigraph():
     #Part b is on Paper (Draw Meta Graph of Strong Components)
     #Use output of Part a to draw graph (Like in Chapter 3 Slides near end)
     #(May be no code)
+    meta_graph = nx.DiGraph()
     meta_graph = create_meta_graph(Dir_Edges, post_scc)
 
     #Create Image of MST
