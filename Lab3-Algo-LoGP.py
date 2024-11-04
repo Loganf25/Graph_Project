@@ -9,7 +9,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from itertools import groupby
 from collections import defaultdict
-
+ 
 # Iterative DFS function
 def dfs_iterative(graph, start):
     visited, stack = set(), [start]
@@ -191,15 +191,13 @@ def scc(graph):
     return out
 
 # Dfs for question 2.c to represent the meta graph as a DAG, linearized in its topological order.
-def dfs_tpl_order(graph,start,path):
+def dfs_tpl_order(graph,start,path,n_holder):
     path = path + [start]
-    global n
-    #n = len(graph)
     for edge in graph[start]: 
         if edge not in path:
-            path = dfs_tpl_order(graph, edge,path)
-        print (n, start)
-        n -= 1
+            path = dfs_tpl_order(graph, edge, path, n_holder)
+    print (n_holder[0], start)
+    n_holder[0] -= 1
     return path
 
 #This Function does the logic for Question 1
@@ -289,10 +287,9 @@ def dirDigraph():
 
     #Code for Part c (Represent the drawn graph as a DAG in topological order)
     #Code also in Chapter 3 Sample Code Folder
-    n = len(post_scc)
-
+    n_holder = [len(Dir_Edges)]
     print('the meta graph as a DAG and linearized in its topological order is:')
-    c = dfs_tpl_order(post_scc, 'A', [])
+    c = dfs_tpl_order(Dir_Edges, 'A', [],n_holder)
     print(c)
 
     return 0
