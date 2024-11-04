@@ -278,12 +278,14 @@ def dirDigraph():
 
     # Run scc.py on graph
     post_scc = scc(Dir_Edges)
-
+    post_scct2 = nx.strongly_connected_components(Dir_Edges)
     print('Strongly connected components are:')
 
     for key in post_scc:
         print(post_scc[key])
-
+    print('\n')
+    for key in post_scct2:
+        print(list[key])
     #Part b is on Paper (Draw Meta Graph of Strong Components)
     #Use output of Part a to draw graph (Like in Chapter 3 Slides near end)
     #(May be no code)
@@ -305,8 +307,11 @@ def dirDigraph():
     #Code also in Chapter 3 Sample Code Folder
     n_holder = [len(Dir_Edges)]
     print('the meta graph as a DAG and linearized in its topological order is:')
-    c = dfs_tpl_order(meta_graph, 1, [],n_holder)
-    print(c)
+    #c = dfs_tpl_order(meta_graph, 1, [],n_holder)
+    #print(c)
+    #print('\n')
+    c1 = list(nx.topological_sort(meta_graph))
+    print(c1)
 
     return 0
 
@@ -388,7 +393,7 @@ def unDirWeighted():
     #Code for Part c (Are Shortest Path Tree and Min Span Tree
     #Usually the Same?) (May be no code)
     print("\nPart C Results")
-    print("As seen by the graphs craeted above, the SPT and MST are different from one another")
+    print("As seen by the graphs created above, the SPT and MST are different from one another")
     print("But, they are the same each time either is found on the given graph.")
     print("Test edges equality: ", spt.edges == MST.edges)
 
