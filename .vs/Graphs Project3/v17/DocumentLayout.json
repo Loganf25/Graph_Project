@@ -3,8 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\joeri\\Desktop\\School\\00 FS24\\Algorithms\\Graphs Project3\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\joeri\\Desktop\\scc.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\joeri\\Desktop\\School\\00 FS24\\Algorithms\\Graphs Project3\\Lab3-Algo-LoGP.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Lab3-Algo-LoGP.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\joeri\\Desktop\\digraph_tpl_order_recursive.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,12 +25,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "scc.py",
+              "DocumentMoniker": "C:\\Users\\joeri\\Desktop\\scc.py",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\scc.py",
+              "ToolTip": "C:\\Users\\joeri\\Desktop\\scc.py",
+              "RelativeToolTip": "..\\..\\..\\..\\scc.py",
+              "ViewState": "AgIAADsAAAAAAAAAAAAYwIUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-04T00:03:03.136Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "digraph_tpl_order_recursive.py",
+              "DocumentMoniker": "C:\\Users\\joeri\\Desktop\\digraph_tpl_order_recursive.py",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\digraph_tpl_order_recursive.py",
+              "ToolTip": "C:\\Users\\joeri\\Desktop\\digraph_tpl_order_recursive.py",
+              "RelativeToolTip": "..\\..\\..\\..\\digraph_tpl_order_recursive.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-04T00:03:03.553Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Lab3-Algo-LoGP.py",
               "DocumentMoniker": "C:\\Users\\joeri\\Desktop\\School\\00 FS24\\Algorithms\\Graphs Project3\\Lab3-Algo-LoGP.py",
               "RelativeDocumentMoniker": "Lab3-Algo-LoGP.py",
               "ToolTip": "C:\\Users\\joeri\\Desktop\\School\\00 FS24\\Algorithms\\Graphs Project3\\Lab3-Algo-LoGP.py",
               "RelativeToolTip": "Lab3-Algo-LoGP.py",
-              "ViewState": "AgIAAPkAAAAAAAAAAAAAAMQAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAUBAAAAAAAAAAAAABgBAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2024-10-30T17:54:42.954Z",
               "EditorCaption": ""

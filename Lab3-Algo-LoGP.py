@@ -277,7 +277,11 @@ def dirDigraph():
 
     # Run scc.py on graph
     post_scc = scc(Dir_Edges)
-
+    if __name__ == '__main__':
+        count, components = post_scc
+    print('Strongly connected components are:')
+    for key in components:
+        print(components[key])
 
     #Part b is on Paper (Draw Meta Graph of Strong Components)
     #Use output of Part a to draw graph (Like in Chapter 3 Slides near end)
@@ -286,7 +290,7 @@ def dirDigraph():
     #Code for Part c (Represent the drawn graph as a DAG in topological order)
     #Code also in Chapter 3 Sample Code Folder
     n = len(post_scc)
-    dfs_tpl_order(post_scc, 'A', [])
+    c = dfs_tpl_order(post_scc, 'A', [])
 
 
     return 0
