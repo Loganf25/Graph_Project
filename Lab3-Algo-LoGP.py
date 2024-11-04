@@ -278,14 +278,14 @@ def dirDigraph():
 
     # Run scc.py on graph
     post_scc = scc(Dir_Edges)
-    post_scct2 = nx.strongly_connected_components(Dir_Edges)
+    #post_scct2 = nx.strongly_connected_components(Dir_Edges)
     print('Strongly connected components are:')
 
     for key in post_scc:
         print(post_scc[key])
-    print('\n')
-    for key in post_scct2:
-        print(list[key])
+    #print('\n')
+    #for key in post_scct2:
+    #    print(list[key])
     #Part b is on Paper (Draw Meta Graph of Strong Components)
     #Use output of Part a to draw graph (Like in Chapter 3 Slides near end)
     #(May be no code)
