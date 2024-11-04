@@ -191,19 +191,15 @@ def create_meta_graph(Dir_Edges, post_scc):
 
     # Iterate through nodes in the SCC graph
     for component in nx.strongly_connected_components(Dir_Edges):
-        leader = next(iter(component))  # Choose a representative node 
-        scc_nodes[leader] = leader 
-
-    for node in Dir_Edges.nodes():
-        if node not in scc_nodes:
-            scc_nodes[node] = node 
+        leader = min(component)  # Choose a representative node 
+        scc_nodes[leader] = component  
             
     for u in Dir_Edges.nodes():
-        leader_u = next((leader for leader in scc_nodes if u in Dir_Edges.subgraph(scc_nodes[leader])), None)
         for v in Dir_Edges.neighbors(u):
-            leader_v = next((leader for leader in scc_nodes if v in Dir_Edges.subgraph(scc_nodes[leader])), None)
+            leader_u = next((leader for leader, comp in scc_nodes.items() if u in comp), None)
+            leader_v = next((leader for leader, comp in scc_nodes.items() if v in comp), None)
             if leader_u != leader_v:
-                meta_graph.add_edge(scc_nodes[leader_u], scc_nodes[leader_v])
+                meta_graph.add_edge(leader_u, leader_v)
     return meta_graph
 
 # Dfs for question 2.c to represent the meta graph as a DAG, linearized in its topological order.
@@ -275,10 +271,9 @@ def dirDigraph():
     #Code in Chapter 3 Folder
     # Set graph as depicted in instructions (A = 1, B = 2, etc.).
     Dir_Edges.add_edges_from([
-        ('A', 'C'), ('B', 'A'), ('C', 'B'), ('C', 'E'), ('D', 'A'), 
-        ('D', 'B'), ('D', 'L'), ('E', 'F'), ('E', 'H'), ('F', 'G'), 
-        ('F', 'H'), ('F', 'J'), ('G', 'J'), ('H', 'I'), ('H', 'J'), 
-        ('I', 'E'), ('I', 'K'), ('J', 'I'), ('J', 'K'), ('K', 'L')
+       (1, 3), (2, 1), (3, 2), (3, 5), (4, 1), (4, 2), (4, 12),
+        (5, 6), (5, 8), (6, 7), (6, 8), (6, 10), (7, 10), (8, 9),
+        (8, 10), (9, 5), (9, 11), (10, 9), (10, 11), (11, 12)
     ])
 
     # Run scc.py on graph
@@ -310,7 +305,7 @@ def dirDigraph():
     #Code also in Chapter 3 Sample Code Folder
     n_holder = [len(Dir_Edges)]
     print('the meta graph as a DAG and linearized in its topological order is:')
-    c = dfs_tpl_order(meta_graph, 'A', [],n_holder)
+    c = dfs_tpl_order(meta_graph, 1, [],n_holder)
     print(c)
 
     return 0
