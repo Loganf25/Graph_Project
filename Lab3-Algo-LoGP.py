@@ -194,12 +194,12 @@ def scc(graph):
 def dfs_tpl_order(graph,start,path):
     path = path + [start]
     global n
-    n = len(graph)
+    #n = len(graph)
     for edge in graph[start]: 
         if edge not in path:
             path = dfs_tpl_order(graph, edge,path)
-    print (n, start)
-    n -= 1
+        print (n, start)
+        n -= 1
     return path
 
 #This Function does the logic for Question 1
@@ -277,11 +277,11 @@ def dirDigraph():
 
     # Run scc.py on graph
     post_scc = scc(Dir_Edges)
-    if __name__ == '__main__':
-        count, components = post_scc
+
     print('Strongly connected components are:')
-    for key in components:
-        print(components[key])
+
+    for key in post_scc:
+        print(post_scc[key])
 
     #Part b is on Paper (Draw Meta Graph of Strong Components)
     #Use output of Part a to draw graph (Like in Chapter 3 Slides near end)
@@ -290,8 +290,10 @@ def dirDigraph():
     #Code for Part c (Represent the drawn graph as a DAG in topological order)
     #Code also in Chapter 3 Sample Code Folder
     n = len(post_scc)
-    c = dfs_tpl_order(post_scc, 'A', [])
 
+    print('the meta graph as a DAG and linearized in its topological order is:')
+    c = dfs_tpl_order(post_scc, 'A', [])
+    print(c)
 
     return 0
 
