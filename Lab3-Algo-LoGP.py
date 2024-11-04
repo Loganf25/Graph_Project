@@ -137,16 +137,16 @@ class Tracker(object):
         self.finish_time = {}
         self.explored = set()
 
-def dfs(graph_dict, node, tracker):
+def dfs(graph, node, tracker):
     """Inner loop explores all nodes in a SCC. Graph represented as a dict,
     {tail: [head_list], ...}. Depth first search runs recursively and keeps
     track of the parameters"""
 
     tracker.explored.add(node)
     tracker.leader[node] = tracker.current_source
-    for head in graph_dict[node]:
+    for head in graph.neighbors(node):
         if head not in tracker.explored:
-            dfs(graph_dict, head, tracker)
+            dfs(graph, head, tracker)
     tracker.current_time += 1
     tracker.finish_time[node] = tracker.current_time
 
@@ -164,10 +164,7 @@ def graph_reverse(graph):
     """Given a directed graph in forms of {tail:[head_list], ...}, compute
     a reversed directed graph, in which every edge changes direction."""
 
-    reversed_graph = defaultdict(list)
-    for tail, head_list in graph.items():
-        for head in head_list:
-            reversed_graph[head].append(tail)
+    reversed_graph = graph.reverse(copy=True)
     return reversed_graph
 
 # Scc for question 2.a to find strongly connected components of the meta graph.
@@ -175,11 +172,8 @@ def scc(graph):
     out = defaultdict(list)
     tracker1 = Tracker()
     tracker2 = Tracker()
-    nodes = set()
+    nodes = graph.nodes()
     reversed_graph = graph_reverse(graph)
-    for tail, head_list in graph.items():
-        nodes |= set(head_list)
-        nodes.add(tail)
     nodes = sorted(list(nodes), reverse=True)
     dfs_loop(reversed_graph, nodes, tracker1)
     sorted_nodes = sorted(tracker1.finish_time,
@@ -195,15 +189,19 @@ def create_meta_graph(Dir_Edges, post_scc):
     meta_graph = nx.DiGraph()
     scc_nodes = {}
 
-# Iterate through nodes in the SCC graph
-    for component in nx.connected_components(post_scc):
+    # Iterate through nodes in the SCC graph
+    for component in nx.strongly_connected_components(Dir_Edges):
         leader = next(iter(component))  # Choose a representative node 
         scc_nodes[leader] = leader 
 
+    for node in Dir_Edges.nodes():
+        if node not in scc_nodes:
+            scc_nodes[node] = node 
+            
     for u in Dir_Edges.nodes():
-        leader_u = next((leader for leader in scc_nodes if u in post_scc.subgraph(scc_nodes[leader])), None)
+        leader_u = next((leader for leader in scc_nodes if u in Dir_Edges.subgraph(scc_nodes[leader])), None)
         for v in Dir_Edges.neighbors(u):
-            leader_v = next((leader for leader in scc_nodes if v in post_scc.subgraph(scc_nodes[leader])), None)
+            leader_v = next((leader for leader in scc_nodes if v in Dir_Edges.subgraph(scc_nodes[leader])), None)
             if leader_u != leader_v:
                 meta_graph.add_edge(scc_nodes[leader_u], scc_nodes[leader_v])
     return meta_graph
@@ -271,25 +269,17 @@ def unDirGraph():
 def dirDigraph():
     print('Question 2 Results')
     #Implement Digraph for Questions (The Picture)
-    DiG = nx.DiGraph() 
+    Dir_Edges = nx.DiGraph() 
     
     #Code for Part a (Create graph and find strongly connected components)
     #Code in Chapter 3 Folder
     # Set graph as depicted in instructions (A = 1, B = 2, etc.).
-    Dir_Edges = {
-         'A': set(['C']),
-         'B': set(['A']),
-         'C': set(['B', 'E']),
-         'D': set(['A', 'B', 'L']),
-         'E': set(['F', 'H']),
-         'F': set(['G','H', 'J']),
-         'G': set(['J']),
-         'H': set(['I', 'J']),
-         'I': set(['E', 'K']),
-         'J': set(['I', 'K']),
-         'K': set(['L']),
-         'L': set()
-            }
+    Dir_Edges.add_edges_from([
+        ('A', 'C'), ('B', 'A'), ('C', 'B'), ('C', 'E'), ('D', 'A'), 
+        ('D', 'B'), ('D', 'L'), ('E', 'F'), ('E', 'H'), ('F', 'G'), 
+        ('F', 'H'), ('F', 'J'), ('G', 'J'), ('H', 'I'), ('H', 'J'), 
+        ('I', 'E'), ('I', 'K'), ('J', 'I'), ('J', 'K'), ('K', 'L')
+    ])
 
     # Run scc.py on graph
     post_scc = scc(Dir_Edges)
@@ -320,7 +310,7 @@ def dirDigraph():
     #Code also in Chapter 3 Sample Code Folder
     n_holder = [len(Dir_Edges)]
     print('the meta graph as a DAG and linearized in its topological order is:')
-    c = dfs_tpl_order(Dir_Edges, 'A', [],n_holder)
+    c = dfs_tpl_order(meta_graph, 'A', [],n_holder)
     print(c)
 
     return 0
