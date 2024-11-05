@@ -202,15 +202,16 @@ def create_meta_graph(Dir_Edges, post_scc):
                 meta_graph.add_edge(leader_u, leader_v)
     return meta_graph
 
-# Dfs for question 2.c to represent the meta graph as a DAG, linearized in its topological order.
-def dfs_tpl_order(graph,start,path,n_holder):
-    path = path + [start]
-    for edge in graph[start]: 
-        if edge not in path:
-            path = dfs_tpl_order(graph, edge, path, n_holder)
-    print (n_holder[0], start)
-    n_holder[0] -= 1
-    return path
+# Dfs for question 2.c to represent the meta graph as a DAG, linearized in its topological order.  Commented out since it is no longer being used.  We discovered that networkx comes with methods for part a and c.
+#Part a works, so I am keeping that.  This code was not working properly, so I am commenting it out to avoid losing points for unused code.
+#def dfs_tpl_order(graph,start,path,n_holder):
+#   path = path + [start]
+#   for edge in graph[start]: 
+#        if edge not in path:
+#            path = dfs_tpl_order(graph, edge, path, n_holder)
+#    print (n_holder[0], start)
+#    n_holder[0] -= 1
+#    return path
 
 #This Function does the logic for Question 1
 def unDirGraph():
@@ -278,7 +279,7 @@ def dirDigraph():
 
     # Run scc.py on graph
     post_scc = scc(Dir_Edges)
-    #post_scct2 = nx.strongly_connected_components(Dir_Edges)
+    #post_scct2 = nx.strongly_connected_components(Dir_Edges)  Could have used this code instead of making my own.  However I already made mine, so I am going to use it to feel a little better about the time spent on it. :')
     print('Strongly connected components are:')
 
     for key in post_scc:
